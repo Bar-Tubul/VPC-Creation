@@ -26,7 +26,7 @@ def create_vpc_resources():
         public_subnet = ec2.create_subnet(
             CidrBlock='10.0.1.0/24',
             VpcId=vpc.id,
-            AvailabilityZone='us-east-1a'  # Specify the Availability Zone
+            AvailabilityZone='us-east-1a'  
         )
         public_route_table.associate_with_subnet(SubnetId=public_subnet.id)
         public_subnet.create_tags(Tags=[{"Key": "Name", "Value": "bar-public-sub"}])
@@ -37,7 +37,7 @@ def create_vpc_resources():
         private_subnet.create_tags(Tags=[{"Key": "Name", "Value": "bar-private-sub"}])
 
         # Create security group
-        security_group = ec2.create_security_group(GroupName='SSH-ONLY', Description='Allow SSH traffic', VpcId=vpc.id)
+        security_group = ec2.create_security_group(GroupName='SSH', Description='Allow SSH traffic', VpcId=vpc.id)
         security_group.authorize_ingress(CidrIp='0.0.0.0/0', IpProtocol='tcp', FromPort=22, ToPort=22)
 
         print("VPC, subnets, route table, and security group created successfully.")
